@@ -1,0 +1,11 @@
+{
+    "name": "VerificationManagement",
+    "alias": "verificationmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\VerificationManagement\\Providers\\VerificationManagementServiceProvider"
+    ],
+    "files": []
+}

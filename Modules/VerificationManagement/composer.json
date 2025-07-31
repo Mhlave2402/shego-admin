@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/verificationmanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\VerificationManagement\\": "app/",
+            "Modules\\VerificationManagement\\Database\\Factories\\": "database/factories/",
+            "Modules\\VerificationManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\VerificationManagement\\Tests\\": "tests/"
+        }
+    }
+}
