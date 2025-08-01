@@ -86,6 +86,7 @@ class RideRequestCreate extends FormRequest
             'encoded_polyline' => 'sometimes',
             'zone_id' => 'required|uuid|exists:zones,id',
             'has_baby_seat' => 'nullable|boolean',
+            'has_nanny' => 'nullable|boolean',
         ];
     }
 

@@ -20,13 +20,15 @@ class ProcessPushNotifications implements ShouldQueue
     protected $parcelWeight;
     protected $has_baby_seat;
     protected $gender;
-    public function __construct( $radius, $trip, $parcelWeight = null, $has_baby_seat = false, $gender = null)
+    protected $is_kids_only_verified;
+    public function __construct( $radius, $trip, $parcelWeight = null, $has_baby_seat = false, $gender = null, $is_kids_only_verified = false)
     {
         $this->radius = $radius;
         $this->trip = $trip;
         $this->parcelWeight = $parcelWeight;
         $this->has_baby_seat = $has_baby_seat;
         $this->gender = $gender;
+        $this->is_kids_only_verified = $is_kids_only_verified;
     }
 
 
@@ -44,7 +46,8 @@ class ProcessPushNotifications implements ShouldQueue
             rideRequestType: $this->trip->ride_request_type,
             parcelWeight: $this->parcelWeight,
             has_baby_seat: $this->has_baby_seat,
-            gender: $this->gender
+            gender: $this->gender,
+            is_kids_only_verified: $this->is_kids_only_verified
         );
 
         if (!empty($find_drivers)) {

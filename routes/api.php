@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DriverBehaviorController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FeatureFeeController;
 use App\Http\Controllers\SplitPaymentController;
@@ -25,6 +26,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('split-payment/{splitPayment}/respond', [SplitPaymentController::class, 'respondToSplit']);
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:api', 'role:admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:api', 'permission:publish articles']], function () {
     Route::apiResource('feature-fees', FeatureFeeController::class);
+});
+
+Route::group(['middleware' => 'auth:api', 'permission:edit articles'], function () {
+    Route::apiResource('driver-behaviors', DriverBehaviorController::class)->only(['store', 'show']);
 });

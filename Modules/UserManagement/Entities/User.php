@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use Modules\AdminModule\Entities\ActivityLog;
 use Modules\AdminModule\Entities\AdminNotification;
 use Modules\ChattingManagement\Entities\ChannelUser;
@@ -21,7 +22,7 @@ use Modules\VehicleManagement\Entities\Vehicle;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasUuid, Notifiable, SoftDeletes, HasApiTokens, HasFactory;
+    use HasFactory, HasUuid, Notifiable, SoftDeletes, HasApiTokens, HasFactory, HasRoles;
 
     protected $fillable = [
         'user_level_id',
@@ -87,10 +88,6 @@ class User extends Authenticatable
         return $this->hasOne(ReferralDriver::class, 'driver_id', 'id');
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id')->withTrashed();
-    }
 
     public function level()
     {

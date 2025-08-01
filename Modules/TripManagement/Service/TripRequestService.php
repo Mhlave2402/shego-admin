@@ -1907,7 +1907,7 @@ class TripRequestService extends BaseService implements TripRequestServiceInterf
         return $trip->refresh();
     }
 
-    public function findNearestDrivers(string $latitude, string $longitude, string $zoneId, int|string $radius, string $vehicleCategoryId = null, string $requestType = null, string $rideRequestType = null, int|string $parcelWeight = null, bool $has_baby_seat = false, string $gender = null): mixed
+    public function findNearestDrivers(string $latitude, string $longitude, string $zoneId, int|string $radius, string $vehicleCategoryId = null, string $requestType = null, string $rideRequestType = null, int|string $parcelWeight = null, bool $has_baby_seat = false, string $gender = null, bool $is_kids_only_verified = false): mixed
     {
         $attributes = [
             'latitude' => $latitude,
@@ -1931,13 +1931,21 @@ class TripRequestService extends BaseService implements TripRequestServiceInterf
         if ($requestType) {
             $attributes['service'] = $requestType;
         }
+        if ($is_kids_only_verified) {
+            $attributes['is_kids_only_verified'] = $is_kids_only_verified;
+        }
 
         $maxParcelRequestAcceptLimit = businessConfig(key: 'maximum_parcel_request_accept_limit', settingsType: DRIVER_SETTINGS);
         $maxParcelRequestAcceptLimitStatus = (bool)($maxParcelRequestAcceptLimit?->value['status'] ?? false);
         $maxParcelRequestAcceptLimitCount = (int)($maxParcelRequestAcceptLimit?->value['limit'] ?? 0);
         $driverList = $this->userLastLocationRepository->getNearestDrivers($attributes);
 
-        return $driverList->filter(function ($driver) use ($requestType, $rideRequestType, $maxParcelRequestAcceptLimitStatus, $maxParcelRequestAcceptLimitCount) {
+        return $driverList->filter(function ($driver) use ($requestType, $rideRequestType, $maxParcelRequestAcceptLimitStatus, $maxParcelRequestAcceptLimitCount, $is_kids_only_verified) {
+            if ($is_kids_only_verified) {
+                if ($driver->driverDetails->avg_rating < 4.5) {
+                    return false;
+                }
+            }
             $rideCount = $driver->driverDetails->ride_count ?? 0;
             $parcelCount = $driver->driverDetails->parcel_count ?? 0;
             if ($requestType === RIDE_REQUEST && $rideRequestType === 'regular' && ($rideCount >= 2 || $driver->user->getDriverAcceptedRegularTrip())) {

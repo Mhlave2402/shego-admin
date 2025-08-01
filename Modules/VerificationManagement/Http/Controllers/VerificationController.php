@@ -109,29 +109,18 @@ class VerificationController extends Controller
         return response()->json(['message' => 'Driver child friendly status updated successfully.']);
     }
 
-    public function setNanny(Request $request)
-    {
-        $request->validate([
-            'driver_id' => 'required|exists:driver_details,id',
-            'is_nanny' => 'required|boolean',
-        ]);
-
-        $driver = DriverDetails::find($request->driver_id);
-        $driver->is_nanny = $request->is_nanny;
-        $driver->save();
-
-        return response()->json(['message' => 'Driver nanny status updated successfully.']);
-    }
 
     public function setKidsOnlyVerified(Request $request)
     {
         $request->validate([
             'driver_id' => 'required|exists:driver_details,id',
             'is_kids_only_verified' => 'required|boolean',
+            'is_kids_only_verified_badge' => 'required|boolean',
         ]);
 
         $driver = DriverDetails::find($request->driver_id);
         $driver->is_kids_only_verified = $request->is_kids_only_verified;
+        $driver->is_kids_only_verified_badge = $request->is_kids_only_verified_badge;
         $driver->save();
 
         return response()->json(['message' => 'Driver kids only verified status updated successfully.']);

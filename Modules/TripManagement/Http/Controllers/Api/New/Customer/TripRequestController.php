@@ -170,7 +170,7 @@ class TripRequestController extends Controller
                 $additionalFees['child_friendly_mode'] = $fee->amount;
             }
         }
-        if ($request->has('nanny_ride') && $request->nanny_ride) {
+        if ($request->has('has_nanny') && $request->has_nanny) {
             $fee = FeatureFee::where('name', 'nanny_ride')->first();
             if ($fee && $fee->is_active) {
                 $additionalFees['nanny_ride'] = $fee->amount;
@@ -237,7 +237,7 @@ class TripRequestController extends Controller
             DB::commit();
 
             $search_radius = (double)get_cache('search_radius') ?? 5;
-            $final->ride_request_type != 'scheduled' && ProcessPushNotifications::dispatch(radius: $search_radius, parcelWeight: $request->weight ?? null, trip: $final, has_baby_seat: $request->has_baby_seat, gender: $request->gender);
+            $final->ride_request_type != 'scheduled' && ProcessPushNotifications::dispatch(radius: $search_radius, parcelWeight: $request->weight ?? null, trip: $final, has_baby_seat: $request->has_baby_seat, gender: $request->gender, is_kids_only_verified: $request->kids_only_verified_rides);
             $trip = new TripRequestResource($final);
 
         } catch (Exception $exception) {

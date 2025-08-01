@@ -30,6 +30,7 @@
         "rap2hpoutre/fast-excel": "^5.3",
         "razorpay/razorpay": "^2.9",
         "react/promise": "^3.1",
+        "spatie/laravel-permission": "^5.5",
         "spatie/db-dumper": "^3.4",
         "stevebauman/location": "^7.1",
         "stripe/stripe-php": "^13.9",

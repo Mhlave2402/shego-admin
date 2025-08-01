@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\StoreDriverBehavior::class => [
+            \App\Listeners\StoreDriverBehaviorListener::class,
+        ],
     ];
 
     /**
