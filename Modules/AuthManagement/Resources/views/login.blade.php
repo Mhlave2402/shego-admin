@@ -32,6 +32,7 @@
     <!-- ======= MAIN STYLES ======= -->
     <link rel="stylesheet" href="{{ asset('public/assets/admin-module/css/style.css') }}"/>
     <link rel="stylesheet" href="{{ asset('public/assets/admin-module/css/custom.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('public/assets/admin-module/css/custom-login.css') }}"/>
     <!-- ======= END MAIN STYLES ======= -->
     @include('landing-page.layouts.css')
 
@@ -64,26 +65,11 @@
 </div>
 <!-- End Preloader -->
 <!-- Login Form -->
-<div class="login-form d-block">
+<div class="login-form d-flex justify-content-center align-items-center vh-100">
     <form action="{{ route('admin.auth.login') }}" enctype="multipart/form-data" method="POST"
-          id="login-form">
+          id="login-form" class="login-form-wrap">
         @csrf
         <div class="login-wrap">
-            <div class="login-left py-4 d-flex justify-content-center align-items-center bg-center bg-img"
-                 data-bg-img="{{asset('public/assets/admin-module/img/media/login-bg.png')}}">
-                <div
-                    class="tf-box d-flex flex-column gap-3 align-items-center justify-content-center p-4 py-sm-5 p-md-5 mx-md-5 mx-4">
-                    <img class="login-logo mb-2" src="{{ onErrorImage(
-                                        $logo,
-                                        asset('storage/app/public/business') . '/' . $logo,
-                                        asset('public/assets/admin-module/img/logo.png'),
-                                        'business/',
-                                    ) }}" alt="Logo">
-                    <h2 class="text-center absolute-white">{{translate("Share the")}}
-                        <strong>{{translate("Ride")}}</strong> {{translate("Share")}} <br> {{translate("the")}}
-                        <strong>{{translate("Journey")}}</strong></h2>
-                </div>
-            </div>
             <div class="login-right-wrap">
                 <div class="d-flex justify-content-end mt-2 me-2">
                         <span class="badge badge-success fz-12 opacity-75">
@@ -93,6 +79,12 @@
                 <div class="login-right w-100 m-auto px-0 pb-{{ env('APP_MODE') == 'demo' ? '3' : '5' }}">
                     <div class="inner-div px-4">
                         <div class="text-center mb-30">
+                            <img class="login-logo mb-4" src="{{ onErrorImage(
+                                        $logo,
+                                        asset('storage/app/public/business') . '/' . $logo,
+                                        asset('public/assets/admin-module/img/logo.png'),
+                                        'business/',
+                                    ) }}" alt="Logo" style="max-width: 200px; margin-bottom: 20px;">
                             <h2 class="text-uppercase mb-3">{{ businessConfig('business_name')->value ?? null }}</h2>
                             <h3 class="mb-2">{{ translate('Sign_In') }}</h3>
                             <p class="opacity-75">{{ translate('sign_in_to_stay_connected') }}

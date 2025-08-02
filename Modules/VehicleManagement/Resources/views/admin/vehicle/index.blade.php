@@ -137,6 +137,8 @@
                                                         {{ translate('vehicle_type') }}</th>
                                                     <th class="text-capitalize total-vehicle brand-model">
                                                         {{ translate('brand_&_model') }}</th>
+                                                    <th class="text-capitalize total-vehicle brand-model">
+                                                        {{ translate('Color') }}</th>
                                                     <th class="text-capitalize total-vehicle viin-license">
                                                         {{ translate('license') }}</th>
                                                     <th class="text-capitalize total-vehicle owner">
@@ -178,6 +180,9 @@
                                                                     </a>
                                                                 </div>
                                                             </div>
+                                                        </td>
+                                                        <td class="brand-model">
+                                                            {{ $vehicle->color }}
                                                         </td>
                                                         <td class="viin-license">{{ $vehicle->licence_plate_number }}
                                                         </td>
